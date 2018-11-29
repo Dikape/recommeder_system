@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DjangoModelDependency</ID>
+  <OriginalElement>#recommender_system</OriginalElement>
+  <nodes>
+    <node x="0.0" y="970.0">materials.models.MaterialTitleTranslate</node>
+    <node x="876.0" y="970.0">materials.models.UserComment</node>
+    <node x="1150.0" y="922.0">materials.models.Advertisement</node>
+    <node x="1428.0" y="886.0">materials.models.FbInfo</node>
+    <node x="1106.0625" y="0.0">django.contrib.contenttypes.models.ContentType</node>
+    <node x="520.75" y="594.0">materials.models.Material</node>
+    <node x="1204.5375" y="392.0">django.contrib.auth.models.Group</node>
+    <node x="327.0" y="958.0">materials.models.UserMark</node>
+    <node x="533.25" y="380.0">materials.models.MaterialType</node>
+    <node x="1141.5625" y="178.0">django.contrib.auth.models.Permission</node>
+    <node x="907.125" y="582.0">materials.models.User</node>
+    <node x="1425.5" y="666.0">django.contrib.auth.models.User</node>
+    <node x="589.0" y="970.0">materials.models.RedactorReview</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="materials.models.UserComment" target="materials.models.Material">
+      <point x="-63.5" y="-52.0" />
+      <point x="939.5" y="846.0" />
+      <point x="709.75" y="846.0" />
+      <point x="54.0" y="100.0" />
+    </edge>
+    <edge source="materials.models.RedactorReview" target="materials.models.User">
+      <point x="66.75" y="-52.0" />
+      <point x="789.25" y="866.0" />
+      <point x="1002.75" y="866.0" />
+      <point x="-31.875" y="112.0" />
+    </edge>
+    <edge source="materials.models.MaterialTitleTranslate" target="materials.models.Material">
+      <point x="0.0" y="-52.0" />
+      <point x="153.5" y="836.0" />
+      <point x="547.75" y="836.0" />
+      <point x="-108.0" y="100.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.User" target="django.contrib.auth.models.Permission">
+      <point x="65.25" y="-28.0" />
+      <point x="1621.25" y="557.0" />
+      <point x="1595.375" y="557.0" />
+      <point x="1595.375" y="355.0" />
+      <point x="1396.5625" y="355.0" />
+      <point x="102.0" y="76.0" />
+    </edge>
+    <edge source="materials.models.Advertisement" target="materials.models.User">
+      <point x="64.5" y="-100.0" />
+      <point x="1343.5" y="826.0" />
+      <point x="1130.25" y="826.0" />
+      <point x="95.625" y="112.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.Permission" target="django.contrib.contenttypes.models.ContentType">
+      <point x="0.0" y="-76.0" />
+      <point x="0.0" y="64.0" />
+    </edge>
+    <edge source="materials.models.User" target="django.contrib.auth.models.Permission">
+      <point x="-63.75" y="-112.0" />
+      <point x="970.875" y="557.0" />
+      <point x="995.25" y="557.0" />
+      <point x="995.25" y="355.0" />
+      <point x="1192.5625" y="355.0" />
+      <point x="-102.0" y="76.0" />
+    </edge>
+    <edge source="materials.models.UserComment" target="materials.models.User">
+      <point x="63.5" y="-52.0" />
+      <point x="31.875" y="112.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.User" target="django.contrib.auth.models.Group">
+      <point x="-65.25" y="-28.0" />
+      <point x="1490.75" y="557.0" />
+      <point x="1409.2875" y="557.0" />
+      <point x="68.25" y="64.0" />
+    </edge>
+    <edge source="materials.models.User" target="django.contrib.auth.models.Group">
+      <point x="63.75" y="-112.0" />
+      <point x="1098.375" y="557.0" />
+      <point x="1272.7875" y="557.0" />
+      <point x="-68.25" y="64.0" />
+    </edge>
+    <edge source="materials.models.RedactorReview" target="materials.models.Material">
+      <point x="-66.75" y="-52.0" />
+      <point x="0.0" y="100.0" />
+    </edge>
+    <edge source="materials.models.UserMark" target="materials.models.User">
+      <point x="60.5" y="-64.0" />
+      <point x="508.5" y="856.0" />
+      <point x="939.0" y="856.0" />
+      <point x="-95.625" y="112.0" />
+    </edge>
+    <edge source="materials.models.Advertisement" target="materials.models.Material">
+      <point x="-64.5" y="-100.0" />
+      <point x="1214.5" y="836.0" />
+      <point x="763.75" y="836.0" />
+      <point x="108.0" y="100.0" />
+    </edge>
+    <edge source="django.contrib.auth.models.Group" target="django.contrib.auth.models.Permission">
+      <point x="0.0" y="-64.0" />
+      <point x="1341.0375" y="355.0" />
+      <point x="1294.5625" y="355.0" />
+      <point x="0.0" y="76.0" />
+    </edge>
+    <edge source="materials.models.FbInfo" target="django.contrib.auth.models.User">
+      <point x="0.0" y="-136.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="materials.models.Material" target="materials.models.MaterialType">
+      <point x="0.0" y="-100.0" />
+      <point x="0.0" y="76.0" />
+    </edge>
+    <edge source="materials.models.UserMark" target="materials.models.Material">
+      <point x="-60.5" y="-64.0" />
+      <point x="387.5" y="846.0" />
+      <point x="601.75" y="846.0" />
+      <point x="-54.0" y="100.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8" x="877.125" y="831.0" />
+  <SelectedNodes>
+    <node>django.contrib.auth.models.User</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+
