@@ -330,3 +330,6 @@ $RECYCLE.BIN/
 style.css.map
 bundle.js.map
 .pylintrc
+
+materials/models_for_class_diagram.py
+materials/models_for_er_diagram.py
