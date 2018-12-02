@@ -10,8 +10,7 @@ class Material(models.Model):
     technical_description = models.CharField(max_length=2000)
     material_type = models.ForeignKey('MaterialType', on_delete=models.CASCADE)
     average_mark = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    redactor_mark = models.IntegerField(
-        models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)]))
+    redactor_mark = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
 
     def __str__(self):
         return f'{self.title_original}'

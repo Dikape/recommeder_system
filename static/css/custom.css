@@ -1,0 +1,17 @@
+.errorlist {
+    color: darkred;
+}
+
+.break_word{
+    word-break: break-all;
+}
+.break_sentence{
+    word-break: normal;
+}
+
+.not_valid{
+    color: darkred;
+}
+.valid{
+    color: green;
+}
