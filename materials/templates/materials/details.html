@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+{% block title %}
+    <title>MailAgent-Letters List</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container break_word">
+        <br/>
+{#          <h2>Letter {{ object.message_id }}</h2>#}
+        <h3 >Sending datetime:</h3>
+        <p>{{ object.sending_datetime }}</p>
+        {% if object.from_email %}
+            <h3 >From:</h3>
+            <p>{{ object.from_email }}</p>
+        {% endif %}
+        {% if object.to %}
+          <h3 >To:</h3>
+
+            <p>{{ object.to }}</p>
+        {% endif %}
+        {% if object.cc %}
+          <h3 >Cc:</h3>
+            <p>{{ object.cc }}</p>
+        {% endif %}
+        {% if object.bcc %}
+          <h3 >Bcc:</h3>
+            <p>{{ object.bcc }}</p>
+        {% endif %}
+          <h3 >Subject:</h3>
+            <p class="break_word">{{ object.subject }}</p>
+          <h3 >Mail body:</h3>
+            <p class="break_word">{{ object.mail_body|safe }}</p>
+    </div>
+{% endblock %}

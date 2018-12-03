@@ -10,8 +10,10 @@ class Material(models.Model):
     technical_description = models.CharField(max_length=2000)
     material_type = models.ForeignKey('MaterialType', on_delete=models.CASCADE)
     average_mark = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    redactor_mark = models.IntegerField(
-        models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)]))
+    redactor_mark = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+
+    def __str__(self):
+        return f'{self.title_original}'
 
     def calculate_average(self):
         pass
@@ -19,8 +21,6 @@ class Material(models.Model):
     def get_all_translates(self):
         pass
 
-    def __str__(self):
-        pass
 
 
 class MaterialTitleTranslate(models.Model):
@@ -28,11 +28,9 @@ class MaterialTitleTranslate(models.Model):
     language = models.CharField(max_length=32)
     translate = models.CharField(max_length=255)
 
-    def krya(self):
-        pass
 
     def __str__(self):
-        pass
+        return f'{self.material}-{self.language}'
 
 
 class MaterialType(models.Model):
@@ -44,6 +42,9 @@ class MaterialType(models.Model):
     def calc_counter(self):
         pass
 
+    def __str__(self):
+        return f'{self.title}'
+
 
 class RedactorReview(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
@@ -54,11 +55,12 @@ class RedactorReview(models.Model):
         pass
 
     def __str__(self):
-        pass
+        return f'{self.material} - {self.author}'
 
 
 class Advertisement(models.Model):
     picture = models.ImageField()
+    title = models.CharField(max_length=100)
     text = models.CharField(max_length=5000)
     reference = models.CharField(max_length=5000)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
@@ -66,11 +68,9 @@ class Advertisement(models.Model):
     date_start = models.DateField()
     date_end = models.DateField()
 
-    def validate_dates(self):
-        pass
 
     def __str__(self):
-        pass
+        return f'{self.material} - {self.title}'
 
 
 class UserMark(models.Model):
@@ -81,7 +81,7 @@ class UserMark(models.Model):
     is_from_fb = models.BooleanField(default=False)
 
     def __str__(self):
-        pass
+        return f'{self.material} - {self.user}'
 
 
 class UserComment(models.Model):
@@ -90,4 +90,4 @@ class UserComment(models.Model):
     comment_text = models.CharField(max_length=5000)
 
     def __str__(self):
-        pass
+        return f'{self.material} - {self.user}'

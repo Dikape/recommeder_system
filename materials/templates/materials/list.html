@@ -1,0 +1,88 @@
+{% extends '_base.html' %}
+{% block title %}
+    <title>MailAgent-Letters List</title>
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+          <br/>
+          <h2>All letters</h2>
+    <div class="table-responsive-md">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+
+          <th scope="col" style="width: 10%">Id</th>
+          <th scope="col" style="width: 20%">Subject</th>
+          <th scope="col" style="width: 20%">Sending datetime</th>
+          <th scope="col" style="width: 25%">To</th>
+          <th scope="col" style="width: 25%">Account</th>
+{#          <th scope="col" style="width: 15%">Account name</th>#}
+        </tr>
+      </thead>
+      <tbody>
+          {% for letter in object_list %}
+            <tr class="break_word">
+              <th scope="row">
+                  <a href="{% url 'letters:letter_details' letter.id %}">{{ letter.id }}</a>
+              </th>
+              <td style="">
+                  <a href="{% url 'letters:letter_details' letter.id %}">{{ letter.subject }}</a>
+              </td>
+              <td >
+                  <p>{{ letter.sending_datetime }}</p>
+{#                  <p>{{ letter.sending_datetime.time }}</p>#}
+              </td>
+              <td>
+                  {% for addressee in letter.to %}
+                      <p class="break_sentence">{{ addressee }}</p>
+                  {% endfor %}
+                  {% if letter.cc %}
+                      <h4>Cc:</h4>
+                      {% for addressee in letter.cc %}
+                          <p class="break_sentence">{{ addressee }}</p>
+                      {% endfor %}
+                  {% endif %}
+                  {% if letter.bcc %}
+                      <h4>Bcc:</h4>
+                      {% for addressee in letter.bcc %}
+                          <p class="break_sentence">{{ addressee }}</p>
+                      {% endfor %}
+                  {% endif %}
+              </td>
+              <td>
+                  <p>{{ letter.thread.account.username }}</p>
+                  <p>({{ letter.thread.account.email }})</p>
+              </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                <a class="page-link"
+                   href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}"
+                   tabindex="-1">Previous
+                </a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }} <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                <a class="page-link"
+                   href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}"
+                   tabindex="-1">Next
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    </div>
+
+{% endblock %}
