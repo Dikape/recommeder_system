@@ -53,7 +53,13 @@
             </div>
         </nav>
     {% endblock nav %}
-
+    {% block breadcrumb %}
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+          </ol>
+        </nav>
+    {% endblock breadcrumb %}
     <div id="content"  class="container-fluid">
         {% include 'messages_alert.html' %}
         {% block content %}
@@ -66,7 +72,8 @@
     {% endblock extrascripts %}
     <br/>
     <br/>
-    <footer class="page-footer font-small bg-dark pt-4">
+
+    <footer class="page-footer  bg-dark pt-4" style="width: 100%">
     </footer>
 </body>
 </html>

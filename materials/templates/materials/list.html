@@ -4,25 +4,52 @@
 {% endblock title %}
 
 {% block content %}
-
+    <a href="{% url 'materials:recommendations' page_obj.0.material_type.slug %}" type="button"
+       class="btn btn-secondary btn-lg btn-block" style="color: #fff;">
+        Переглянути цільові пропозицій в категорій "{{ page_obj.0.material_type.title }}"
+    </a>
     <div class="container">
         <br/>
+
         <h2 class="text-center">Всі {{ page_obj.0.material_type.title }}</h2>
+        <div class="row">
+            {% for obj in page_obj %}
+                <div class="col-md-6" style="margin-top: 30px">
+                    <div class="card" style="background-color: #E8F8F5">
+                        <div class="card-body">
+                            <h3>{{ obj.title_original }}</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{% url 'materials:details' obj.material_type.slug obj.id %}">
+                                        <img src="{{ obj.image.url }}" alt="{{ obj.slug }}"
+                                             class="rounded mx-auto d-block" style="width: 100%">
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ obj.technical_description|safe    }}
+                                </div>
+                                {#                        <div class="col-md-6">#}
+                                {#                            {{ obj.description|truncatechars:900|safe }}#}
+                                {#                        </div>#}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% if obj.average_mark %}
+                                        <h5>Оцінка користувачів: {{ obj.average_mark }}</h5>
+                                    {% endif %}
+                                    {% if obj.average_mark %}
+                                        <h5>Оцінка редактора: {{ obj.redactor_mark }}</h5>
+                                    {% endif %}
 
-        {% for obj in page_obj %}
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="{% url 'materials:' obj.slug %}">
-                        <h2 class="text-center">{{ obj.title }}</h2>
-                    </a>
-                    <a href="{% url 'materials:materials' obj.slug %}">
-                        <img src="{{ obj.image.url }}" alt="{{ obj.slug }}"
-                             style="width: 300px; height: 300px" class="rounded-circle mx-auto d-block">
-                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+                <br/>
 
+            {% endfor %}
+        </div>
         {% if page_obj.has_previous or page_obj.has_next %}
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
@@ -47,5 +74,4 @@
         {% endif %}
 
     </div>
-
 {% endblock %}

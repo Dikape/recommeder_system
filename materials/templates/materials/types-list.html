@@ -12,12 +12,13 @@
         {% for obj in page_obj %}
             <div class="col-md-6">
                 <a href="{% url 'materials:materials' obj.slug %}">
-                    <h2 class="text-center">{{ obj.title }}</h2>
+                    <h2 class="text-center">{{ obj.title }} ({{ obj.counter }})</h2>
                 </a>
                 <a href="{% url 'materials:materials' obj.slug %}">
                     <img src="{{ obj.image.url }}" alt="{{ obj.slug }}"
                      style="width: 300px; height: 300px" class="rounded-circle mx-auto d-block">
                 </a>
+
             </div>
         {% endfor %}
     </div>

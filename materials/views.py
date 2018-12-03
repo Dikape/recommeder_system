@@ -33,7 +33,24 @@ class MaterialsListView(ListView):
 materials = MaterialsListView.as_view()
 
 
+class RecommendationsView(ListView):
+    model = models.Material
+    template_name = 'materials/recomendations.html'
+    paginate_by = 20
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(
+            material_type__slug=self.kwargs.get('slug')
+        )
+        return qs
+
+
+recommendations = RecommendationsView.as_view()
+
+
 class LetterDetailView(DetailView):
+    pk_url_kwarg = 'id'
     model = models.Material
     template_name = 'materials/details.html'
 

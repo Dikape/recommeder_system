@@ -1,35 +1,78 @@
 {% extends '_base.html' %}
 {% block title %}
-    <title>MailAgent-Letters List</title>
+    <title>{{ object.title_original }}</title>
 {% endblock title %}
 
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Домашня</a></li>
+            <li class="breadcrumb-item " ><a href="#">{{ object.material_type.title }}</a>  </li>
+            <li class="breadcrumb-item">Рекомендації</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ object.title_original }}</li>
+        </ol>
+    </nav>
+{% endblock breadcrumb %}
+
 {% block content %}
-
-    <div class="container break_word">
+    <div class="container">
         <br/>
-{#          <h2>Letter {{ object.message_id }}</h2>#}
-        <h3 >Sending datetime:</h3>
-        <p>{{ object.sending_datetime }}</p>
-        {% if object.from_email %}
-            <h3 >From:</h3>
-            <p>{{ object.from_email }}</p>
-        {% endif %}
-        {% if object.to %}
-          <h3 >To:</h3>
+        <h2 class="text-center">{{ object.title_original }}</h2>
 
-            <p>{{ object.to }}</p>
-        {% endif %}
-        {% if object.cc %}
-          <h3 >Cc:</h3>
-            <p>{{ object.cc }}</p>
-        {% endif %}
-        {% if object.bcc %}
-          <h3 >Bcc:</h3>
-            <p>{{ object.bcc }}</p>
-        {% endif %}
-          <h3 >Subject:</h3>
-            <p class="break_word">{{ object.subject }}</p>
-          <h3 >Mail body:</h3>
-            <p class="break_word">{{ object.mail_body|safe }}</p>
+        <div class="card" >
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <img src="{{ object.image.url }}" alt="{{ object.slug }}"
+                             class="rounded mx-auto d-block">
+                        <hr/>
+                        <h5>Ваша оцінка:
+                            <a href="#"><b>0</b></a>
+                            <a href="#"><b>1</b></a>
+                            <a href="#"><b>2</b></a>
+                            <a href="#"><b>3</b></a>
+                            <a href="#"><b>4</b></a>
+                            <a href="#"><b>5</b></a>
+                        </h5>
+                        {% if object.average_mark %}
+                            <h5>Оцінка редактора: {{ object.redactor_mark }}</h5>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 >Опис:</h3>
+                        {{ object.technical_description|safe }}
+                    </div>
+                    <div class="col-md-6">
+                        <h3 >Переклад:</h3>
+                        {% for trans in object.materialtitletranslate_set.all %}
+                            <p><b>{{ trans.language }}</b> - {{ trans.translate }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 >Сюжет:</h3>
+                        {{ object.description|safe    }}
+                    </div>
+                </div>
+                {#                <div class="row">#}
+                {#                    <div class="col-md-12">#}
+                {#                        {% if object.average_mark %}#}
+                {#                            <h5>Оцінка користувачів: {{ object.average_mark }}</h5>#}
+                {#                        {% endif %}#}
+                {#                        {% if object.average_mark %}#}
+                {#                            <h5>Оцінка редактора: {{ object.redactor_mark }}</h5>#}
+                {#                        {% endif %}#}
+                {##}
+                {#                    </div>#}
+                {#                </div>#}
+            </div>
+        </div>
     </div>
+
 {% endblock %}
