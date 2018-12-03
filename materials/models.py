@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 from django.contrib.auth.models import User
@@ -9,8 +10,16 @@ class Material(models.Model):
     description = models.CharField(max_length=5000)
     technical_description = models.CharField(max_length=2000)
     material_type = models.ForeignKey('MaterialType', on_delete=models.CASCADE)
-    average_mark = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    redactor_mark = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    average_mark = models.FloatField(
+        validators=[MinValueValidator(0), MaxValueValidator(5)],
+        blank=True,
+        null=True
+    )
+    redactor_mark = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(5)],
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return f'{self.title_original}'
@@ -27,6 +36,7 @@ class MaterialTitleTranslate(models.Model):
 
 class MaterialType(models.Model):
     title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True)
     description = models.CharField(max_length=5000)
     image = models.ImageField()
     counter = models.IntegerField()

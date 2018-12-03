@@ -17,17 +17,20 @@ class RedactorReviewAdmin(admin.StackedInline):
     extra = 0
     min_num = 0
 
+
 # @admin.register(Advertisement)
 class AdvertisementAdmin(admin.StackedInline):
     model = Advertisement
     extra = 0
     min_num = 0
 
+
 class MaterialForm(forms.ModelForm):
   class Meta:
     model = Material
     widgets = {
       'description': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
+      'technical_description': forms.Textarea(attrs={'cols': 80, 'rows': 10}),
     }
     fields = '__all__'
 
@@ -44,12 +47,16 @@ class MaterialTypeForm(forms.ModelForm):
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
     form = MaterialForm
-    inlines = [MaterialTitleTranslateAdmin, RedactorReviewAdmin, AdvertisementAdmin]
+    list_display = ['title_original', 'material_type', 'average_mark',
+                    'redactor_mark']
+    inlines = [MaterialTitleTranslateAdmin, RedactorReviewAdmin,
+               AdvertisementAdmin]
 
 
 @admin.register(MaterialType)
 class MaterialTypeAdmin(admin.ModelAdmin):
     form = MaterialTypeForm
+    prepopulated_fields = {"slug": ("title",)}
 
 
 @admin.register(UserComment)

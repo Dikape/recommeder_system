@@ -3,9 +3,9 @@ from django.http import Http404
 from materials import models
 
 
-class LettersListView(ListView):
-    model = models.Material
-    template_name = 'materials/list.html'
+class MaterialTypesListView(ListView):
+    model = models.MaterialType
+    template_name = 'materials/types-list.html'
     paginate_by = 20
 
     def get_queryset(self):
@@ -14,7 +14,23 @@ class LettersListView(ListView):
         # return qs.filter(thread__account__owner=self.request.user, thread__account__is_active=True)
 
 
-index = LettersListView.as_view()
+index = MaterialTypesListView.as_view()
+
+
+class MaterialsListView(ListView):
+    model = models.Material
+    template_name = 'materials/list.html'
+    paginate_by = 20
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.filter(
+            material_type__slug=self.kwargs.get('slug')
+        )
+        return qs
+
+
+materials = MaterialsListView.as_view()
 
 
 class LetterDetailView(DetailView):

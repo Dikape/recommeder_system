@@ -15,3 +15,25 @@
 .valid{
     color: green;
 }
+
+/* unvisited link */
+a:link {
+    color: #343a40;
+}
+
+/* visited link */
+a:visited {
+    color: #343a40;
+}
+
+/* mouse over link */
+a:hover {
+    color: blue;
+    text-decoration: none;
+}
+
+/* selected link */
+a:active {
+    color: blue;
+    text-decoration: none;
+}

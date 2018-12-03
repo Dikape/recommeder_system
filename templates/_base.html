@@ -8,7 +8,6 @@
     {% endblock title %}
 
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}" type="text/css" media="all">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" media="all">
     <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}" type="text/css" media="all">
 
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
@@ -16,32 +15,38 @@
 
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" media="all">
 </head>
 
 <body>
     {% block nav %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">MailAgent</a>
+            <a class="navbar-brand" href="/">Recommender</a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="">Mail accounts</a>
+                        <a class="nav-link" href="">Новинки</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Migration</a>
+                        <a class="nav-link" href="">Анонси</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                    {% if request.user.is_authenticated %}
-                        <span class="navbar-text">({{ request.user }})</span>
-                    {% endif %}
+                        <div class=" active-purple-2 mr-3">
+                          <input class="form-control" type="text" placeholder="Шукати" aria-label="Search">
+                        </div>
                     </li>
                     <li class="nav-item">
                         {% if request.user.is_authenticated %}
-                            <a class="nav-link" href="">Logout</a>
+                            <span class="navbar-text">({{ request.user }})</span>
+                        {% endif %}
+                    </li>
+                    <li class="nav-item">
+                        {% if request.user.is_authenticated %}
+                            <a class="nav-link" href="">Вийти</a>
                         {% else %}
-                            <a class="nav-link" href="  ">Login</a>
+                            <a class="nav-link" href="">Увійти</a>
                         {% endif %}
                     </li>
                 </ul>
@@ -59,5 +64,9 @@
     {% block extrascripts %}
 
     {% endblock extrascripts %}
+    <br/>
+    <br/>
+    <footer class="page-footer font-small bg-dark pt-4">
+    </footer>
 </body>
 </html>
