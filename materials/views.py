@@ -10,7 +10,7 @@ class MaterialTypesListView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        return qs
+        return qs.order_by('id')
         # return qs.filter(thread__account__owner=self.request.user, thread__account__is_active=True)
 
 
@@ -43,7 +43,7 @@ class RecommendationsView(ListView):
         qs = qs.filter(
             material_type__slug=self.kwargs.get('slug')
         ).exclude(image='')
-        return qs.order_by('-redactor_mark')
+        return qs.order_by('-average_mark')
 
 
 recommendations = RecommendationsView.as_view()

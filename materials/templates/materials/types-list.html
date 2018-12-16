@@ -6,45 +6,50 @@
 {% block content %}
 
     <div class="container">
-          <br/>
-          <h2 class="text-center">Всі типи матеріалів</h2>
-    <div class="row">
-        {% for obj in page_obj %}
-            <div class="col-md-6">
-                <a href="{% url 'materials:materials' obj.slug %}">
-                    <h2 class="text-center">{{ obj.title }} ({{ obj.counter }})</h2>
-                </a>
-                <a href="{% url 'materials:materials' obj.slug %}">
-                    <img src="{{ obj.image.url }}" alt="{{ obj.slug }}"
-                     style="width: 300px; height: 300px" class="rounded-circle mx-auto d-block">
-                </a>
-
-            </div>
-        {% endfor %}
-    </div>
-
-    {% if page_obj.has_previous or page_obj.has_next %}
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-                    <a class="page-link"
-                       href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}"
-                       tabindex="-1">Previous
+        <br/>
+        <h2 class="text-center">Всі типи матеріалів</h2>
+        <div class="row">
+            {% for obj in page_obj %}
+                <div class="col-md-6 mb-2">
+                    <a href="{% url 'materials:materials' obj.slug %}">
+                        <h2 class="text-center">{{ obj.title }} ({{ obj.material_set.count }})</h2>
                     </a>
-                </li>
-                <li class="page-item active">
-                    <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }} <span class="sr-only">(current)</span></a>
-                </li>
-
-                <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-                    <a class="page-link"
-                       href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}"
-                       tabindex="-1">Next
+                    <a href="{% url 'materials:materials' obj.slug %}">
+                        <img src="{{ obj.image.url }}" alt="{{ obj.slug }}"
+                             style="width: 300px; height: 300px" class="rounded-circle mx-auto d-block">
                     </a>
-                </li>
-            </ul>
-        </nav>
-    {% endif %}
+
+                </div>
+                {% if forloop.counter0 == 1 %}
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        {% if page_obj.has_previous or page_obj.has_next %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                        <a class="page-link"
+                           href="?page={% if page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}"
+                           tabindex="-1">Previous
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }} <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                        <a class="page-link"
+                           href="?page={% if page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}"
+                           tabindex="-1">Next
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        {% endif %}
 
     </div>
 
