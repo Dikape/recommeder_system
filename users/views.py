@@ -4,6 +4,7 @@ from recommender_system.settings import client_id, client_secret
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .models import FbInfo, FacebookTokens
+from materials.models import Material, UserMark
 import requests
 
 
@@ -75,7 +76,28 @@ def login_(request):
 
 
 def profile(request):
-    context = {
-        'user': request.user
-    }
-    return render(request, 'users/profile.html', context=context)
+    if request.user.is_authenticated:
+        user_token = request.user.facebooktokens.token
+        user_likes_url = f'https://graph.facebook.com/me?' \
+            f'fields=likes,music,movies,television,favorite_athletes,favorite_teams,games,books' \
+            f'&access_token={user_token}'
+        likes_r = requests.get(user_likes_url)
+        likes_list = []
+        if likes_r.status_code == 200:
+            for like_obj in likes_r.json()['movies']['data']:
+                material = Material.objects.filter(title_original__contains=like_obj['name'][:15])
+                if material:
+                    try:
+                        mark = UserMark.objects.get(user=request.user, material=material.first())
+                    except UserMark.DoesNotExist:
+                        mark = UserMark.objects.create(
+                            user=request.user, material=material.first(), mark=5, is_from_fb=True)
+                    likes_list.append(mark)
+
+        context = {
+            'user': request.user,
+            'materials': likes_list
+        }
+        return render(request, 'users/profile.html', context=context)
+    else:
+        return redirect(reverse('materials:index'))

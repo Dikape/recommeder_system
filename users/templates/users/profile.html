@@ -13,75 +13,83 @@
 
 {% block content %}
     <div class="container">
-{#        <br/>#}
+        {#        <br/>#}
         <h2 class="text-center">{{ user.get_full_name }}</h2>
-{##}
-{#        <div class="card" >#}
-{#            <div class="card-body">#}
-{#                <div class="row">#}
-{#                    <div class="col-md-12">#}
-{##}
-{#                        <img src="{% if 'http' in object.image.url %}#}
-{#                                                    {{ object.image }}#}
-{#                                                  {% else %}#}
-{#                                                    {{ object.image.url }}#}
-{#                                                  {% endif %}" alt="{{ object.slug }}"#}
-{#                             class="rounded mx-auto d-block">#}
-{#                        <hr/>#}
-{#                        <h5>Ваша оцінка:#}
-{#                            {% if user_mark %}#}
-{#                                {% if user_mark.is_from_fb %}#}
-{#                                    <b>5</b> (Оцінка взята з facebook <a href=""> Змінити)</a>#}
-{#                                {% else %}#}
-{#                                    <b>{{ user_mark.mark }}</b>#}
-{#                                {% endif %}#}
-{#                            {% else %}#}
-{#                                <a href="#"><b>0</b></a>#}
-{#                                <a href="#"><b>1</b></a>#}
-{#                                <a href="#"><b>2</b></a>#}
-{#                                <a href="#"><b>3</b></a>#}
-{#                                <a href="#"><b>4</b></a>#}
-{#                                <a href="#"><b>5</b></a>#}
-{#                            {% endif %}#}
-{#                        </h5>#}
-{#                        {% if object.average_mark %}#}
-{#                            <h5>Оцінка редактора: {{ object.redactor_mark }}</h5>#}
-{#                        {% endif %}#}
-{#                    </div>#}
-{#                </div>#}
-{#                <hr/>#}
-{#                <div class="row">#}
-{#                    <div class="col-md-6">#}
-{#                        <h3 >Опис:</h3>#}
-{#                        {{ object.technical_description|safe }}#}
-{#                    </div>#}
-{#                    <div class="col-md-6">#}
-{#                        <h3 >Переклад:</h3>#}
-{#                        {% for trans in object.materialtitletranslate_set.all %}#}
-{#                            <p><b>{{ trans.language }}</b> - {{ trans.translate }}</p>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                </div>#}
-{#                <hr/>#}
-{#                <div class="row">#}
-{#                    <div class="col-md-12">#}
-{#                        <h3 >Сюжет:</h3>#}
-{#                        {{ object.description|safe    }}#}
-{#                    </div>#}
-{#                </div>#}
-                {#                <div class="row">#}
-                {#                    <div class="col-md-12">#}
-                {#                        {% if object.average_mark %}#}
-                {#                            <h5>Оцінка користувачів: {{ object.average_mark }}</h5>#}
-                {#                        {% endif %}#}
-                {#                        {% if object.average_mark %}#}
-                {#                            <h5>Оцінка редактора: {{ object.redactor_mark }}</h5>#}
-                {#                        {% endif %}#}
-                {##}
-                {#                    </div>#}
-                {#                </div>#}
-{#            </div>#}
-{#        </div>#}
+        {##}
+        <div class="card" >
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 >Логін: </h4>{{ user.username }}
+
+                    </div>
+
+                </div>
+                <hr/>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 >Вік: </h4>{{ user.fbinfo.age }}
+
+                    </div>
+                    <div class="col-md-6">
+                        <h4 >Стать: </h4>{{ user.fbinfo.gender }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 >Домашнє місто: </h4>{{ user.fbinfo.home_address }}
+
+                    </div>
+                    <div class="col-md-6">
+                        <h4 >Поточна локація: </h4>{{ user.fbinfo.location }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 >Кількість друзів у facebook: </h4>{{ user.fbinfo.friends_count }}
+
+                    </div>
+                </div>
+                <hr/>
+
+                <div class="table-responsive-md">
+                    <h2>Матеріали, які ви оцінили</h2>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+
+                            <th scope="col" style="width: 10%">Id</th>
+                            <th scope="col" style="width: 30%">Назва</th>
+                            <th scope="col" style="width: 30%">Тип</th>
+                            <th scope="col" style="width: 30%">Оцінка</th>
+                            {#          <th scope="col" style="width: 15%">Account name</th>#}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for mark in materials %}
+                            {% with material=mark.material %}
+                                <tr class="break_word">
+                                    <th scope="row">
+                                        <a href="{% url 'materials:details' material.material_type.slug material.id %}">{{ material.id }}</a>
+                                    </th>
+                                    <td style="">
+                                        <a href="{% url 'materials:details' material.material_type.slug material.id %}">{{ material.title_original }}</a>
+                                    </td>
+                                    <td >
+                                        <p>{{ material.material_type.title }}</p>
+                                        {#                  <p>{{ letter.sending_datetime.time }}</p>#}
+                                    </td>
+                                    <td>
+                                        {{ mark.mark }}
+                                    </td>
+                                </tr>
+                            {% endwith %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
