@@ -86,7 +86,7 @@ class Advertisement(models.Model):
 class UserMark(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    redactor_mark = models.IntegerField(
+    mark = models.IntegerField(
         models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)]))
     is_from_fb = models.BooleanField(default=False)
 
