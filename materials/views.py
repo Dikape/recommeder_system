@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.views.generic import ListView, DetailView
 from django.http import Http404
 from materials import models
@@ -26,8 +27,9 @@ class MaterialsListView(ListView):
         qs = super().get_queryset()
         qs = qs.filter(
             material_type__slug=self.kwargs.get('slug'),
-        ).exclude(image='')
-        return qs.order_by('-id')
+        ).exclude(image='').exclude(average_mark__isnull=True)
+        # print(qs[0].users_mark)
+        return qs.order_by('-average_mark')
 
 
 materials = MaterialsListView.as_view()
@@ -42,7 +44,7 @@ class RecommendationsView(ListView):
         qs = super().get_queryset()
         qs = qs.filter(
             material_type__slug=self.kwargs.get('slug')
-        ).exclude(image='')
+        ).exclude(image='').exclude(average_mark__isnull=True)
         return qs.order_by('-average_mark')
 
 

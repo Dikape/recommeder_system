@@ -33,7 +33,7 @@
                                 <div class="col-md-6">
                                     {{ obj.technical_description|safe    }}
                                     <hr/>
-                                    <b>Оцінка користувачів: {{ obj.redactor_mark }}</b>
+                                    <b>Оцінка користувачів: {{ obj.average_mark|floatformat }}</b>
                                     <br>
                                     <b>Оцінка редактора: {{ obj.redactor_mark }}</b>
                                 </div>

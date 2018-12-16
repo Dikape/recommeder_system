@@ -33,9 +33,9 @@
                                 <div class="col-md-6">
                                     {{ obj.technical_description|safe    }}
                                     <hr/>
-                                    <b>Users mark: {{ obj.redactor_mark }}</b>
+                                    <b>Оцінка користувачів: {{ obj.average_mark|floatformat }}</b>
                                     <br>
-                                    <b>Redactor`s mark: {{ obj.redactor_mark }}</b>
+                                    <b>Оцінка редактора: {{ obj.redactor_mark }}</b>
                                 </div>
                                 {#                        <div class="col-md-6">#}
                                 {#                            {{ obj.description|truncatechars:900|safe }}#}
