@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 
 class Material(models.Model):
-    image = models.ImageField()
+    image = models.ImageField(max_length=500)
     title_original = models.CharField(max_length=255)
     description = models.CharField(max_length=5000)
     technical_description = models.CharField(max_length=2000)

@@ -6,9 +6,17 @@
 {% block breadcrumb %}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Домашня</a></li>
-            <li class="breadcrumb-item " ><a href="#">{{ object.material_type.title }}</a>  </li>
-            <li class="breadcrumb-item">Рекомендації</li>
+            <li class="breadcrumb-item"><a href="{% url 'materials:index' %}">Домашня</a></li>
+            <li class="breadcrumb-item " >
+                <a href="{% url 'materials:materials' object.material_type.slug %}">
+                    {{ object.material_type.title }}
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'materials:recommendations' object.material_type.slug %}">
+                    Рекомендації
+                </a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">{{ object.title_original }}</li>
         </ol>
     </nav>
@@ -24,7 +32,11 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        <img src="{{ object.image.url }}" alt="{{ object.slug }}"
+                        <img src="{% if 'http' in object.image.url %}
+                                                    {{ object.image }}
+                                                  {% else %}
+                                                    {{ object.image.url }}
+                                                  {% endif %}" alt="{{ object.slug }}"
                              class="rounded mx-auto d-block">
                         <hr/>
                         <h5>Ваша оцінка:

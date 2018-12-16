@@ -25,9 +25,9 @@ class MaterialsListView(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.filter(
-            material_type__slug=self.kwargs.get('slug')
-        )
-        return qs
+            material_type__slug=self.kwargs.get('slug'),
+        ).exclude(image='')
+        return qs.order_by('-id')
 
 
 materials = MaterialsListView.as_view()
@@ -42,8 +42,8 @@ class RecommendationsView(ListView):
         qs = super().get_queryset()
         qs = qs.filter(
             material_type__slug=self.kwargs.get('slug')
-        )
-        return qs
+        ).exclude(image='')
+        return qs.order_by('-redactor_mark')
 
 
 recommendations = RecommendationsView.as_view()
