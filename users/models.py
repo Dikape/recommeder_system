@@ -19,3 +19,8 @@ class FbInfo(models.Model):
     gender = models.CharField(max_length=100, choices=GENDER_CHOICE)
     friends_count = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class FacebookTokens(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=500)

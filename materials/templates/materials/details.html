@@ -40,12 +40,20 @@
                              class="rounded mx-auto d-block">
                         <hr/>
                         <h5>Ваша оцінка:
-                            <a href="#"><b>0</b></a>
-                            <a href="#"><b>1</b></a>
-                            <a href="#"><b>2</b></a>
-                            <a href="#"><b>3</b></a>
-                            <a href="#"><b>4</b></a>
-                            <a href="#"><b>5</b></a>
+                            {% if user_mark %}
+                                {% if user_mark.is_from_fb %}
+                                    <b>5</b> (Оцінка взята з facebook <a href=""> Змінити)</a>
+                                {% else %}
+                                    <b>{{ user_mark.mark }}</b>
+                                {% endif %}
+                            {% else %}
+                                <a href="#"><b>0</b></a>
+                                <a href="#"><b>1</b></a>
+                                <a href="#"><b>2</b></a>
+                                <a href="#"><b>3</b></a>
+                                <a href="#"><b>4</b></a>
+                                <a href="#"><b>5</b></a>
+                            {% endif %}
                         </h5>
                         {% if object.average_mark %}
                             <h5>Оцінка редактора: {{ object.redactor_mark }}</h5>

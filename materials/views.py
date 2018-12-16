@@ -56,6 +56,17 @@ class LetterDetailView(DetailView):
     model = models.Material
     template_name = 'materials/details.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            user_mark = models.UserMark.objects.get(user=self.request.user,
+                                                    material=self.object.id)
+        except models.UserMark.DoesNotExist:
+            user_mark = None
+        context.update({
+            'user_mark': user_mark
+        })
+        return context
     # def get_object(self, queryset=None):
     #     obj = super().get_object()
     #     if obj.thread.account.owner == self.request.user:
