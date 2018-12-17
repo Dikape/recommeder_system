@@ -67,9 +67,9 @@ class RecommendationsView(ListView):
                 movies = models.UserMark.objects.filter(mark__gte=2, user=fb_info.user).\
                     values_list('material__id', flat=True)
                 all_movies.extend(movies)
-        qs = qs.filter(id__in=all_movies,
+        qs = qs.filter(id__in=all_movies, average_mark__gt=3,
             material_type__slug=self.kwargs.get('slug')
-        ).exclude(image='').exclude(average_mark__isnull=True).order_by('?')[:30]
+        ).exclude(image='').exclude(average_mark__isnull=True)[:30]
         return qs
 
 

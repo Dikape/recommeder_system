@@ -39,7 +39,7 @@
                     </li>
                     <li class="nav-item">
                         {% if request.user.is_authenticated %}
-                            <span class="navbar-text">({{ request.user }})</span>
+                            <a class="navbar-text" href="{% url 'users:profile' %}">({{ request.user }})</a>
                         {% endif %}
                     </li>
                     <li class="nav-item">
