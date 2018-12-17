@@ -14,12 +14,14 @@ class Material(models.Model):
     average_mark = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(5)],
         blank=True,
-        null=True
+        null=True,
+        db_index=True
     )
     redactor_mark = models.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(5)],
         blank=True,
-        null=True
+        null=True,
+        db_index=True
     )
 
     def __str__(self):
@@ -44,7 +46,7 @@ class MaterialTitleTranslate(models.Model):
 
 class MaterialType(models.Model):
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, blank=True)
+    slug = models.SlugField(max_length=255, blank=True, db_index=True)
     description = models.CharField(max_length=5000)
     image = models.ImageField()
     counter = models.IntegerField()
@@ -87,7 +89,7 @@ class UserMark(models.Model):
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     mark = models.IntegerField(
-        models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)]))
+        models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)]), db_index=True)
     is_from_fb = models.BooleanField(default=False)
 
     def __str__(self):

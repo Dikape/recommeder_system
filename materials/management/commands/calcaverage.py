@@ -15,9 +15,9 @@ class Command(BaseCommand):
         for material in all_materials:
             material_marks = material.usermark_set.all().values_list('mark', flat=True)
             if material_marks:
-                material.average_mark = sum(material_marks)/len(material_marks) + 1
+                material.average_mark = sum(material_marks)/len(material_marks) + 0.8
                 if material.average_mark > 5:
-                    material.average_mark -= 1
+                    material.average_mark -= 0.5
                 print(material.average_mark)
                 material.save()
 

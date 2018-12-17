@@ -1,8 +1,11 @@
+import pickle
 from django.db.models import Avg
 from django.views.generic import ListView, DetailView
 from django.http import Http404
 from materials import models
-
+from users.models import FbInfo
+from django.contrib.auth.models import User
+import numpy as np
 
 class MaterialTypesListView(ListView):
     model = models.MaterialType
@@ -42,10 +45,32 @@ class RecommendationsView(ListView):
 
     def get_queryset(self):
         qs = super().get_queryset()
-        qs = qs.filter(
+        all_movies = []
+        with open('trained_model.pkl', 'rb') as tr_model:
+            model = pickle.load(tr_model)
+            materials = models.Material.objects.filter(material_type=1).order_by('id')[:10]
+            vector = self.request.user.fbinfo.get_vector(materials)
+            prediction = model.predict([vector,])
+            cluster_center = model.data[prediction]
+            print(f'Cluster center({prediction})={cluster_center}')
+            labels = model.labels_
+            class_members = labels == prediction
+            # for i, obj in enumerate(model.data):
+            #     if class_members[i]:
+            #         print(obj)
+            indexes = np.where(class_members==True)
+            for i in indexes[0]:
+                n = int(i)
+                print(model.data[n])
+                fb_info = FbInfo.objects.all().order_by('id')[n]
+                print(fb_info.get_vector(materials))
+                movies = models.UserMark.objects.filter(mark__gte=2, user=fb_info.user).\
+                    values_list('material__id', flat=True)
+                all_movies.extend(movies)
+        qs = qs.filter(id__in=all_movies,
             material_type__slug=self.kwargs.get('slug')
-        ).exclude(image='').exclude(average_mark__isnull=True)
-        return qs.order_by('-average_mark')
+        ).exclude(image='').exclude(average_mark__isnull=True).order_by('?')[:30]
+        return qs
 
 
 recommendations = RecommendationsView.as_view()
