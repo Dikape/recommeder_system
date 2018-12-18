@@ -5,6 +5,7 @@ app_name = 'users'
 
 urlpatterns = [
     path('login/', views.login_, name='login'),
+    path('logout/', views.logout_, name='logout'),
     path('profile/', views.profile, name='profile'),
     # path('search/', views.site.urls),
     # path('materials/<slug:title>/', views.site.urls),

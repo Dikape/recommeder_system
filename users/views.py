@@ -2,7 +2,7 @@ import datetime
 from django.shortcuts import render, redirect, reverse
 from recommender_system.settings import client_id, client_secret
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from .models import FbInfo, FacebookTokens
 from materials.models import Material, UserMark
 import requests
@@ -73,6 +73,11 @@ def login_(request):
             login(request, user)
 
     return redirect(reverse('users:profile'))
+
+
+def logout_(request):
+    logout(request)
+    return redirect(reverse('materials:index'))
 
 
 def profile(request):
